@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/fontawesome/css/solid.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/dashboard.css">
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand col-md-2">To-Do Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="nav navbar-nav ml-auto">
+                <li>
+                    <p id="user" sec:authentication="name">Username</p>
+                </li>
+                <li>
+                    <a href="/logout" class="btn btn-outline-success" type="submit">Log out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="container">
+        <div class="col">
+            <div th:if="${#fields.hasErrors('${item.itemError}')}">
+                <h3>Can't update</h3>
+                <a href="/dashboard" class="btn btn-primary mb-3">Refresh</a>
+            </div>
+            <div class="items" th:unless="${#lists.isEmpty(allItems)}">
+                <div class="card item" th:each="it : ${allItems}">
+                    <form action="/update" method="POST" th:object="${item}">
+                        <div class="card-body item-body">
+                            <input type="hidden" name="id" th:value="${it.getId()}" />
+                            <input th:class="'card-title ' + ${it.getId()}" th:value="${it.getTitle()}"
+                                   type="text" th:name="title" id="titleSaved" th:errorclass="fieldError" readonly="readonly">
+                            <p class="validation" th:each="error: ${#fields.errors('title')}"
+                               th:text="${error}">Error</p>
+                            <input th:class="'card-priority ' + ${it.getId()}" th:value="${it.getPriority()}"
+                                   type="number" name="priority" id="prioritySaved" readonly="readonly">
+                            <br>
+                            <label for="startDate">Start date:</label>
+                            <input type="date" th:value="${it.getStartDate()}" th:class="${it.getId()}" id="startDate" name="startDate" readonly="readonly"> <br>
+                            <label for="endDate">End date:</label>
+                            <input type="date" th:value="${it.getEndDate()}" th:class="${it.getId()}" id="endDate" name="endDate" readonly="readonly"> <br>
+
+                            <textarea th:class="'card-text ' + ${it.getId()}" th:text="${it.getDescription()}"
+                                      name="description"  id="bodySaved" readonly="readonly"></textarea>
+
+                            <div class="float-right">
+                                <button type="submit" class="action action-update"><i class="fas fa-save"></i></button>
+                                <button type="button" th:class="'action edit'+${it.getId()}"
+                                        th:onclick="'enableEdit('+${it.getId()}+')'"><i
+                                        class="fas fa-pencil-alt"></i></button>
+                                <a th:href="'/delete/'+ ${it.getId()}" class="action"><i
+                                        class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="collapse" id="collapseForm">
+                <div class="card card-body">
+                    <form action="/add" method="POST" id="addForm" th:object="${item}">
+                        <p th:each="error: ${#fields.errors('itemError')}" th:text="${error}">Error</p>
+
+                        <div class="item-add">
+                            <input type="text" th:field="*{title}" name="title" id="titleAdd" placeholder="Title" required autofocus><br>
+                            <p class="validation" th:each="error : ${#fields.errors('title')}"
+                               th:text="${error}">Error</p>
+                            <label for="startDate">Start date:</label>
+                            <input type="date" id="startDateAdd" name="startDate"> <br>
+                            <label for="endDate">End date:</label>
+                            <input type="date" id="endDateAdd" name="endDate"> <br>
+                            <textarea name="description" th:field="*{description}" id="descriptionAdd"
+                                      placeholder="Description" required></textarea>
+                            <p class="validation" th:each="error : ${#fields.errors('description')}"
+                               th:text="${error}">Error</p><br>
+                            <input type="number" th:field="*{priority}" name="priority" id="priorityAdd" placeholder="Priority" min="0">
+                            <p class="validation" th:each="error : ${#fields.errors('priority')}"
+                               th:text="${error}">Error</p><br>
+
+                            <input type="submit" class="btn btn-success" value="Save">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card add">
+                <div class="card-body add-body" data-toggle="collapse" data-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+                    <button type="button" class="plus"><i class="fas fa-plus"></i></button>
+                    <button type="button" class="minus"><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer>
+
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="../static/js/dashboard.js"></script>
+</body>
+
+</html>

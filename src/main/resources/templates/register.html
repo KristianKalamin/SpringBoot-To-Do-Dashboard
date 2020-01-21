@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/css/register.css">
+    <title>Register</title>
+</head>
+
+<body class="text-center">
+<div class="container">
+    <h1>Register</h1>
+    <form action="/register" class="form-register" th:object="${user}" method="POST">
+        <div class="input-container first">
+            <input type="text" th:field="*{name}" placeholder="Name" class="form-control" required/>
+            <p class="validation" th:each="error: ${#fields.errors('name')}"
+               th:text="${error}">Error</p>
+        </div>
+
+        <div class="input-container">
+            <input type="email" th:field="*{email}" placeholder="Email" class="form-control" required/>
+            <p class="validation" th:each="error : ${#fields.errors('email')}"
+               th:text="${error}">Error</p>
+        </div>
+        <div class="input-container">
+            <input type="password" th:field="*{password}" placeholder="Password" class="form-control" required/>
+            <p class="validation" th:each="error : ${#fields.errors('password')}"
+               th:text="${error}">Error</p>
+        </div>
+        <div class="input-container">
+            <input type="password" th:field="*{matchingPassword}" placeholder="Confirm password" class="form-control confirm-pass" required/>
+        </div>
+        <div class="buttons">
+            <button type="submit" class="btn btn-primary" id="register-btn">Register</button>
+            <a href="/login">Login</a>
+            <p th:each="error: ${#fields.errors('userError')}" th:text="${error}">Error</p>
+        </div>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>

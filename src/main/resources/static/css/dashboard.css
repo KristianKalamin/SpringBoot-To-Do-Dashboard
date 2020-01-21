@@ -1,0 +1,145 @@
+header {
+  margin-bottom: 5rem;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+#user {
+  text-align: center;
+  color: white;
+  padding: .375rem .75rem;
+  text-transform: uppercase;
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.fa-pencil-alt {
+  cursor: pointer;
+}
+
+.action-update {
+  display: none;
+}
+
+.item {
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.item-body {
+  padding: 35px;
+}
+
+.float-right {
+  margin-bottom: 10px;
+}
+
+.add {
+  background-color: #212529;
+  text-align: center;
+  margin-bottom: 20px;
+  -webkit-transition: background-color 500ms linear;
+  -moz-transition: background-color 500ms linear;
+  -o-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+
+.add-body {
+  padding: 5px;
+}
+
+.plus {
+  text-align: center;
+}
+
+#save {
+  color: white;
+  font-size: 30px;
+  margin: 0;
+  padding: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: none;
+}
+
+.fa-plus, .fa-minus {
+  font-size: 45px;
+  color: white;
+  padding: 5px;
+}
+
+.minus {
+  display: none;
+}
+
+.plus:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.add:hover {
+  background-color: #212529d7;
+}
+
+.action {
+  color: black;
+  padding: 10px;
+  margin: 0;
+  font-size: 28px;
+  -webkit-transition: color 300ms linear;
+  -moz-transition: color 300ms linear;
+  -o-transition: color 300ms linear;
+  -ms-transition: color 300ms linear;
+  transition: color 300ms linear;
+}
+
+.action:hover {
+  color: rgba(0, 0, 0, 0.671);
+}
+
+button {
+    background: none;
+    border: none;
+}
+
+#titleSaved {
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+#prioritySaved {
+  width: 10%;
+  margin-bottom: 10px;
+}
+
+#bodySaved {
+  width: 50.5%;
+  margin-bottom: 10px;
+  height: 150px;
+}
+
+.item-add {
+  padding: 20px;
+}
+
+#titleAdd {
+  margin-bottom: 10px;
+  width: 50%;
+}
+
+#descriptionAdd {
+  width: 50%;
+  margin-bottom: 10px;
+  height: 150px;
+}
+
+#priorityAdd {
+  margin-bottom: 10px;
+}
+
